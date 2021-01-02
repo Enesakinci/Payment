@@ -1,0 +1,73 @@
+<form [formGroup]="frmPaymentDedail" (submit)="onSubmit()">
+    <input type="hidden" formControlName="PMId" [(ngModel)]="service.formData.PMId">
+    <div class="form-group has-error">
+        <div class="input-group">
+            <input formControlName="CardOwnerName" [(ngModel)]="service.formData.CardOwnerName" class="form-control" placeholder="Card Owner Name">
+        </div>
+        <div *ngIf="frmPaymentDedail.controls['CardOwnerName'].invalid && (frmPaymentDedail.controls['CardOwnerName'].dirty || frmPaymentDedail.controls['CardOwnerName'].touched)" class="alert">
+            <small class="form-text text-muted " *ngIf="frmPaymentDedail.controls['CardOwnerName'].errors.required">
+        Required Card Owner Name
+        </small>
+            <small class="form-text text-muted" *ngIf="frmPaymentDedail.controls['CardOwnerName'].errors.maxlength">
+        don't use more than 100 char 
+        </small>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+            <input formControlName="CardNumber" [(ngModel)]="service.formData.CardNumber" maxlength="16" minlength="16" class="form-control" placeholder="16 Digit Card Number">
+        </div>
+        <div *ngIf="frmPaymentDedail.controls['CardNumber'].invalid && (frmPaymentDedail.controls['CardNumber'].dirty || frmPaymentDedail.controls['CardNumber'].touched)" class="alert">
+            <small class="form-text text-muted " *ngIf="frmPaymentDedail.controls['CardNumber'].errors.required">
+        Required Card Number
+        </small>
+            <small class="form-text text-muted " *ngIf="frmPaymentDedail.controls['CardNumber'].errors.minlength">
+        Car number is 16 numeric character
+        </small>
+            <small class="form-text text-muted " *ngIf="frmPaymentDedail.controls['CardNumber'].errors.pattern">
+        Car number is only numeric
+        </small>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-7">
+            <div class="input-group">
+                <input formControlName="ExpirationDate" maxlength="5" minlength="5" [(ngModel)]="service.formData.ExpirationDate" class="form-control" placeholder="MM/YY">
+            </div>
+            <div *ngIf="frmPaymentDedail.controls['ExpirationDate'].invalid && (frmPaymentDedail.controls['ExpirationDate'].dirty || frmPaymentDedail.controls['ExpirationDate'].touched)" class="alert">
+                <small class="form-text text-muted " *ngIf="frmPaymentDedail.controls['ExpirationDate'].errors.required">
+          Required Card Expire Date
+          </small>
+                <small class="form-text text-muted " *ngIf="frmPaymentDedail.controls['ExpirationDate'].errors.minlength">
+          Card Expire Date is 5 'numeric' and '/' character
+          </small>
+                <small class="form-text text-muted " *ngIf="frmPaymentDedail.controls['ExpirationDate'].errors.pattern">
+          Car number is not MM/YY format and >= current date
+          </small>
+
+            </div>
+        </div>
+        <div class="form-group col-md-5">
+            <div class="input-group">
+                <input formControlName="CVV" name="CVV" [(ngModel)]="service.formData.CVV" maxlength="3" minlength="3" class="form-control" placeholder="CVV">
+            </div>
+            <div *ngIf="frmPaymentDedail.controls['CVV'].invalid && (frmPaymentDedail.controls['CVV'].dirty || frmPaymentDedail.controls['CVV'].touched)" class="alert">
+                <small class="form-text text-muted " *ngIf="frmPaymentDedail.controls['CVV'].errors.required">
+          Required CVV
+          </small>
+                <small class="form-text text-muted " *ngIf="frmPaymentDedail.controls['CVV'].errors.maxlength">
+            You must 3 char  
+            </small>
+                <small class="form-text text-muted " *ngIf="frmPaymentDedail.controls['CVV'].errors.pattern">
+                Car number is only numeric
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-success btn-lg btn-block" [disabled]="!frmPaymentDedail.valid" type="submit"><i class="fas fa-database"></i> Submit</button>
+    </div>
+    <div class="form-group">
+        <a class="btn btn-danger btn-lg btn-block" (click)="resetForm()"><i class="fas fa-trash"></i> Clear</a>
+    </div>
+</form>
